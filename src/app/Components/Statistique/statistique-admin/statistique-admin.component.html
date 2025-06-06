@@ -1,0 +1,175 @@
+<div class="row">
+    <!-- Loading Spinner -->
+    <div *ngIf="loading" class="col-12 text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="col-12">
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    </div>
+
+    <!-- Detailed Statistics Cards -->
+    <div *ngIf="!loading && !error && adminStats" class="col-12 mt-4">
+        <div class="row">
+            <!-- Formations Statistics -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card total-income-card overflow-hidden bg-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar avatar-lg icon m-r-5">
+                                <i class="text-white ti ti-book f-24"></i>
+                            </div>
+                            <div class="ms-2">
+                                <h4 class="text-white f-w-600 mb-1">{{ adminStats.TotalFormations }}</h4>
+                                <p class="mb-0 opacity-50 text-sm text-white">Total Formations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Statistics -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card total-income-card overflow-hidden bg-primary">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar avatar-lg icon m-r-5">
+                                <i class="text-white ti ti-user f-24"></i>
+                            </div>
+                            <div class="ms-2">
+                                <h4 class="text-white f-w-600 mb-1">{{ adminStats.TotalFormateurs }}</h4>
+                                <p class="mb-0 opacity-50 text-sm text-white">Total Formateurs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card total-income-card overflow-hidden bg-secondary">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar avatar-lg icon m-r-5">
+                                <i class="text-white ti ti-users f-24"></i>
+                            </div>
+                            <div class="ms-2">
+                                <h4 class="text-white f-w-600 mb-1">{{ adminStats.TotalEtudiants }}</h4>
+                                <p class="mb-0 opacity-50 text-sm text-white">Total Étudiants</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card total-income-card overflow-hidden bg-success">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar avatar-lg icon m-r-5">
+                                <i class="text-white ti ti-user-check f-24"></i>
+                            </div>
+                            <div class="ms-2">
+                                <h4 class="text-white f-w-600 mb-1">{{ adminStats.UtilisateursActifs }}</h4>
+                                <p class="mb-0 opacity-50 text-sm text-white">Utilisateurs Actifs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card total-income-card overflow-hidden bg-danger">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar avatar-lg icon m-r-5">
+                                <i class="text-white ti ti-user-off f-24"></i>
+                            </div>
+                            <div class="ms-2">
+                                <h4 class="text-white f-w-600 mb-1">{{ adminStats.UtilisateursInactifs }}</h4>
+                                <p class="mb-0 opacity-50 text-sm text-white">Utilisateurs Inactifs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card total-income-card overflow-hidden bg-warning">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar avatar-lg icon m-r-5">
+                                <i class="text-white ti ti-file-text f-24"></i>
+                            </div>
+                            <div class="ms-2">
+                                <h4 class="text-white f-w-600 mb-1">{{ adminStats.TotalInscriptions }}</h4>
+                                <p class="mb-0 opacity-50 text-sm text-white">Total Inscriptions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Evolution Charts -->
+    <div *ngIf="evolutionStats" class="col-12 mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>Évolution des statistiques</h4>
+            </div>
+            <div class="card-body">
+                <div id="evolution-chart">
+                    <apx-chart [series]="evolutionChartOptions.series" [chart]="evolutionChartOptions.chart"
+                        [xaxis]="evolutionChartOptions.xaxis" [yaxis]="evolutionChartOptions.yaxis"
+                        [stroke]="evolutionChartOptions.stroke" [colors]="evolutionChartOptions.colors"
+                        [markers]="evolutionChartOptions.markers" [legend]="evolutionChartOptions.legend"
+                        [tooltip]="evolutionChartOptions.tooltip">
+                    </apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Specialites Charts -->
+    <div *ngIf="specialitesStats" class="col-12 mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>Statistiques par spécialité</h4>
+            </div>
+            <div class="card-body">
+                <div id="specialites-chart">
+                    <apx-chart [series]="specialitesChartOptions.series" [chart]="specialitesChartOptions.chart"
+                        [plotOptions]="specialitesChartOptions.plotOptions"
+                        [dataLabels]="specialitesChartOptions.dataLabels" [stroke]="specialitesChartOptions.stroke"
+                        [xaxis]="specialitesChartOptions.xaxis" [yaxis]="specialitesChartOptions.yaxis"
+                        [fill]="specialitesChartOptions.fill" [colors]="specialitesChartOptions.colors"
+                        [tooltip]="specialitesChartOptions.tooltip" [legend]="specialitesChartOptions.legend">
+                    </apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Periodes Charts -->
+    <div *ngIf="periodesStats" class="col-12 mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>Taux d'occupation par période</h4>
+            </div>
+            <div class="card-body">
+                <div id="periodes-chart">
+                    <apx-chart [series]="periodesChartOptions.series" [chart]="periodesChartOptions.chart"
+                        [xaxis]="periodesChartOptions.xaxis" [yaxis]="periodesChartOptions.yaxis"
+                        [colors]="periodesChartOptions.colors" [markers]="periodesChartOptions.markers"
+                        [tooltip]="periodesChartOptions.tooltip">
+                    </apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

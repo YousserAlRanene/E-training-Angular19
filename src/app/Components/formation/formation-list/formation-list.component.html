@@ -1,0 +1,117 @@
+<div class="modern-container">
+  <!-- Header avec bouton flottant -->
+  <div class="header-section">
+    <div class="header-content">
+      <h1 class="modern-title">Gestion des Formations</h1>
+      <p class="modern-subtitle">Liste complète des formations disponibles</p>
+    </div>
+
+    <button mat-fab color="primary" class="add-button" (click)="openFormationDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <!-- Card container -->
+  <mat-card class="modern-card">
+    <!-- Toolbar avec filtre -->
+    <div class="toolbar-section">
+      <mat-form-field appearance="fill" class="search-field">
+        <mat-label>Rechercher une formation</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Titre, durée...">
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+
+      <button mat-stroked-button color="primary" class="refresh-button" (click)="loadFormations()">
+        <mat-icon>refresh</mat-icon>
+        Actualiser
+      </button>
+    </div>
+
+    <!-- Tableau -->
+    <div class="table-wrapper">
+      <div class="loading-overlay" *ngIf="loading">
+        <mat-spinner diameter="50" color="accent"></mat-spinner>
+        <p>Chargement en cours...</p>
+      </div>
+
+      <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+        <!-- Colonne ID -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <td mat-cell *matCellDef="let formation">
+            <div class="id-cell">{{formation.Id | slice:0:8}}</div>
+          </td>
+        </ng-container>
+
+        <!-- Colonne Titre -->
+        <ng-container matColumnDef="titre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Titre</th>
+          <td mat-cell *matCellDef="let formation">
+            <div class="title-cell">
+              <strong>{{formation.Titre}}</strong>
+              <!-- <span class="description">{{formation.Description | truncate:50}}</span> -->
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Colonne Places -->
+        <ng-container matColumnDef="PlacesDisponibles">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Places</th>
+          <td mat-cell *matCellDef="let formation">
+            {{formation.PlacesDisponibles}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Salle">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Salle</th>
+          <td mat-cell *matCellDef="let formation">
+            {{formation.Salle}}
+          </td>
+        </ng-container>
+
+        <!-- Colonne Durée -->
+        <ng-container matColumnDef="duree">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Durée</th>
+          <td mat-cell *matCellDef="let formation">
+            <div class="duration-cell">
+              <mat-icon class="duration-icon">schedule</mat-icon>
+              {{formation.Duree}}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Colonne Actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="actions-header">Actions</th>
+          <td mat-cell *matCellDef="let formation">
+            <div class="actions-cell">
+              <button mat-icon-button color="primary" class="edit-button" (click)="openFormationDialog(formation)"
+                matTooltip="Modifier">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" class="delete-button" (click)="deleteFormation(formation.Id)"
+                matTooltip="Supprimer">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+
+        <!-- Message quand pas de données -->
+        <tr class="no-data-row" *matNoDataRow>
+          <td colspan="5">
+            <div class="no-data-content">
+              <mat-icon>info</mat-icon>
+              <p>Aucune formation ne correspond à votre recherche</p>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons class="modern-paginator"></mat-paginator>
+  </mat-card>
+</div>

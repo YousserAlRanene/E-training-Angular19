@@ -1,0 +1,91 @@
+<div class="row">
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="col-12 text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="col-12">
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+  </div>
+
+  <!-- Trainer Info -->
+  <div *ngIf="!loading && !error && trainerStats?.Formateur" class="col-12 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Informations du Formateur</h3>
+        <div class="row">
+          <div class="col-md-4">
+            <p><strong>Nom:</strong> {{ trainerStats.Formateur.Nom }}</p>
+          </div>
+          <div class="col-md-4">
+            <p><strong>Prénom:</strong> {{ trainerStats.Formateur.Prenom }}</p>
+          </div>
+          <div class="col-md-4">
+            <p><strong>Spécialité:</strong> {{ trainerStats.Formateur.Specialite }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div *ngIf="!loading && !error && trainerStats" class="col-12">
+    <div class="row">
+      <!-- Total Formations -->
+      <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card total-income-card overflow-hidden bg-primary">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-lg icon m-r-5">
+                <i class="text-white ti ti-book f-24"></i>
+              </div>
+              <div class="ms-2">
+                <h4 class="text-white f-w-600 mb-1">{{ trainerStats.TotalFormations }}</h4>
+                <p class="mb-0 opacity-50 text-sm text-white">Total Formations</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formations En Cours -->
+      <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card total-income-card overflow-hidden bg-success">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-lg icon m-r-5">
+                <i class="text-white ti ti-bookmark f-24"></i>
+              </div>
+              <div class="ms-2">
+                <h4 class="text-white f-w-600 mb-1">{{ trainerStats.FormationsEnCours }}</h4>
+                <p class="mb-0 opacity-50 text-sm text-white">Formations En Cours</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Étudiants -->
+      <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card total-income-card overflow-hidden bg-info">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-lg icon m-r-5">
+                <i class="text-white ti ti-users f-24"></i>
+              </div>
+              <div class="ms-2">
+                <h4 class="text-white f-w-600 mb-1">{{ trainerStats.TotalEtudiants }}</h4>
+                <p class="mb-0 opacity-50 text-sm text-white">Total Étudiants</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

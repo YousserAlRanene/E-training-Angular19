@@ -1,0 +1,54 @@
+<app-statistique-etudiant></app-statistique-etudiant>
+<div class="container mt-1">
+  <h2 class="mb-4">Formations Disponibles</h2>
+
+  <!-- Loading state -->
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+
+  <!-- Error state -->
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+
+  <!-- Formations grid -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div *ngFor="let formation of formations" class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ formation.Titre }}</h5>
+          <p class="card-text">{{ formation.Description }}</p>
+          <div class="d-flex justify-content-between">
+            <small>Places disponibles: {{ formation.PlacesDisponibles }}</small>
+            <small>Durée: {{ formation.Duree }}</small>
+          </div>
+          <hr>
+          <br>
+          Fourmateur:
+          <ul class="list-group list-group-flush">
+            @for (list of formation.Formateurs; track list) {
+            <li class="list-group-item px-0">
+              <div class="row align-items-start">
+                <div class="col">
+                  <h5 class="mb-0">{{ list.NomComplet }}</h5>
+                </div>
+              </div>
+            </li>
+            }
+          </ul>
+        </div>
+        <div class="card-footer text-muted">
+          <div class="d-flex justify-content-between align-items-center">
+            <small>Salle: {{ formation.Salle }}</small>
+            <button class="btn btn-success" (click)="sAbonner(formation.Id)" [disabled]="formation.EstInscrit">
+              {{ formation.EstInscrit ? 'Déjà inscrit' : "S'abonner" }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

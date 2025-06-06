@@ -1,0 +1,71 @@
+<div class="form-container">
+    <div class="form-header">
+        <h2>{{ isEditMode ? 'Modifier le formateur' : 'Ajouter un formateur' }}</h2>
+        <button mat-icon-button class="close-button" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <mat-dialog-content>
+        <div class="loading-overlay" *ngIf="loading">
+            <mat-spinner diameter="40"></mat-spinner>
+        </div>
+
+        <form [formGroup]="formateurForm" class="modern-form" (ngSubmit)="onSubmit()">
+            <div class="form-columns">
+                <div class="form-column">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Nom</mat-label>
+                        <input matInput formControlName="nom" required>
+                        <mat-icon matPrefix>person</mat-icon>
+                        <mat-error *ngIf="formateurForm.get('nom')?.hasError('required')">
+                            Le nom est requis
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" type="email" required>
+                        <mat-icon matPrefix>email</mat-icon>
+                        <mat-error *ngIf="formateurForm.get('email')?.hasError('required')">
+                            L'email est requis
+                        </mat-error>
+                        <mat-error *ngIf="formateurForm.get('email')?.hasError('email')">
+                            Format d'email invalide
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-column">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Prénom</mat-label>
+                        <input matInput formControlName="prenom" required>
+                        <mat-icon matPrefix>person_outline</mat-icon>
+                        <mat-error *ngIf="formateurForm.get('prenom')?.hasError('required')">
+                            Le prénom est requis
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Spécialité</mat-label>
+                        <input matInput formControlName="specialite" required>
+                        <mat-icon matPrefix>school</mat-icon>
+                        <mat-error *ngIf="formateurForm.get('specialite')?.hasError('required')">
+                            La spécialité est requise
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+
+    <div class="form-actions">
+        <button mat-button class="cancel-button" (click)="onCancel()" [disabled]="loading">
+            Annuler
+        </button>
+        <button mat-raised-button color="primary" class="submit-button" (click)="onSubmit()"
+            [disabled]="formateurForm.invalid || loading">
+            {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+        </button>
+    </div>
+</div>

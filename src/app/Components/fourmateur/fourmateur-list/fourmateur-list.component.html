@@ -1,0 +1,104 @@
+<div class="modern-container">
+    <div class="header-section">
+        <div class="header-content">
+            <h1 class="modern-title">Gestion des Formateurs</h1>
+            <p class="modern-subtitle">Gérez les formateurs et leurs informations</p>
+        </div>
+
+        <button mat-fab color="primary" class="add-button" (click)="openFormateurForm()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+    <div class="modern-card">
+        <div class="toolbar-section">
+            <mat-form-field class="search-field">
+                <mat-label>Rechercher</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher un formateur...">
+                <mat-icon matPrefix>search</mat-icon>
+            </mat-form-field>
+
+            <button mat-button class="refresh-button" (click)="loadFormateurs()">
+                <mat-icon>refresh</mat-icon>
+                Actualiser
+            </button>
+        </div>
+
+        <div class="table-wrapper">
+            <div class="loading-overlay" *ngIf="loading">
+                <mat-spinner diameter="40"></mat-spinner>
+                <p>Chargement des formateurs...</p>
+            </div>
+
+            <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+                <!-- Nom Column -->
+                <ng-container matColumnDef="nom">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+                    <td mat-cell *matCellDef="let formateur">{{formateur.Nom}}</td>
+                </ng-container>
+
+                <!-- Prénom Column -->
+                <ng-container matColumnDef="prenom">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Prénom</th>
+                    <td mat-cell *matCellDef="let formateur">{{formateur.Prenom}}</td>
+                </ng-container>
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                    <td mat-cell *matCellDef="let formateur">{{formateur.Email}}</td>
+                </ng-container>
+
+                <!-- Spécialité Column -->
+                <ng-container matColumnDef="specialite">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Spécialité</th>
+                    <td mat-cell *matCellDef="let formateur">{{formateur.Specialite}}</td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
+                    <td mat-cell *matCellDef="let formateur">
+                        <mat-slide-toggle [checked]="formateur.UtilisateurActive" (change)="toggleStatus(formateur)"
+                            color="primary">
+                            {{formateur.UtilisateurActive ? 'Actif' : 'Inactif'}}
+                        </mat-slide-toggle>
+                    </td>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let formateur">
+                        <div class="actions-cell">
+                            <button mat-icon-button color="primary" (click)="openFormateurForm(formateur)"
+                                matTooltip="Modifier">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="accent" (click)="resetPassword(formateur)"
+                                matTooltip="Réinitialiser le mot de passe">
+                                <mat-icon>lock_reset</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+
+                <!-- Message quand pas de données -->
+                <tr class="no-data-row" *matNoDataRow>
+                    <td [attr.colspan]="displayedColumns.length">
+                        <div class="no-data-content">
+                            <mat-icon>people</mat-icon>
+                            <p>Aucun formateur ne correspond à votre recherche</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <mat-paginator class="modern-paginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+    </div>
+</div>

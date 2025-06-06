@@ -1,0 +1,40 @@
+<div class="details-container">
+    <div class="header-section">
+        <div class="header-content">
+            <h1 class="page-title">Détails de la Formation</h1>
+            <p class="page-subtitle">Liste des étudiants inscrits</p>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <!-- Loading Indicator -->
+        <div class="loading-overlay" *ngIf="loading">
+            <mat-spinner diameter="50"></mat-spinner>
+            <p>Chargement en cours...</p>
+        </div>
+
+        <!-- Students List -->
+        <div class="students-list" *ngIf="!loading">
+            <div class="student-card" *ngFor="let etudiant of etudiants">
+                <div class="student-info">
+                    <mat-icon class="student-icon">person</mat-icon>
+                    <div class="student-details">
+                        <h3>{{etudiant.Nom}} {{etudiant.Prenom}}</h3>
+                        <p class="student-email">{{etudiant.Email}}</p>
+                    </div>
+                </div>
+                <!-- <div class="student-status">
+                    <span class="status-badge" [class.present]="etudiant.Present">
+                        {{etudiant.Present ? 'Présent' : 'Absent'}}
+                    </span>
+                </div> -->
+            </div>
+
+            <!-- No Data Message -->
+            <div class="no-data" *ngIf="etudiants.length === 0">
+                <mat-icon>info</mat-icon>
+                <p>Aucun étudiant inscrit à cette formation</p>
+            </div>
+        </div>
+    </div>
+</div>

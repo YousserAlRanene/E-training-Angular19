@@ -1,0 +1,51 @@
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-title {
+        color: #2c3e50;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .card-text {
+        color: #666;
+        margin-bottom: 1.5rem;
+    }
+
+    .badge {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .btn-success {
+        padding: 0.5rem 1.5rem;
+        font-weight: 500;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    .card-footer {
+        background-color: #f8f9fa;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+}
+
+.container {
+    padding-bottom: 1rem;
+}
+
+h2 {
+    color: #2c3e50;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2rem;
+}

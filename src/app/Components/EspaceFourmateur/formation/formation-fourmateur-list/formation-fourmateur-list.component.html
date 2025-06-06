@@ -1,0 +1,122 @@
+<div class="formation-container">
+    <!-- Header Section -->
+    <div class="header-section">
+        <div class="header-content">
+            <h1 class="page-title">Mes Formations</h1>
+            <p class="page-subtitle">Liste des formations que vous animez</p>
+        </div>
+    </div>
+
+    <!-- Filter and Refresh Section -->
+    <div class="action-section">
+        <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Rechercher une formation</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Titre, salle...">
+            <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
+
+        <button mat-stroked-button color="primary" (click)="loadFormations()" class="refresh-button">
+            <mat-icon>refresh</mat-icon>
+            Actualiser
+        </button>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-container">
+        <!-- Loading Indicator -->
+        <div class="loading-overlay" *ngIf="loading">
+            <mat-spinner diameter="50"></mat-spinner>
+            <p>Chargement en cours...</p>
+        </div>
+
+        <!-- Data Table -->
+        <mat-table [dataSource]="dataSource" matSort class="formation-table">
+            <!-- Titre Column -->
+            <ng-container matColumnDef="titre">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Titre</mat-header-cell>
+                <mat-cell *matCellDef="let formation">
+                    <div class="formation-title">
+                        <strong>{{formation.Titre}}</strong>
+                        <!-- <span class="formation-description">{{formation.Description | truncate:50}}</span> -->
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- PlacesDisponibles Column -->
+            <ng-container matColumnDef="PlacesDisponibles">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Places</mat-header-cell>
+                <mat-cell *matCellDef="let formation">
+                    <div class="capacity-badge"
+                        [class.low-capacity]="formation.PlacesDisponibles && formation.PlacesDisponibles < 5">
+                        {{formation.PlacesDisponibles}}
+                        <span
+                            *ngIf="formation.PlacesDisponibles !== null && formation.PlacesDisponibles !== undefined">/{{formation.PlacesDisponibles
+                            + (formation.EtudiantsInscrits?.length || 0)}}</span>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Salle Column -->
+            <ng-container matColumnDef="Salle">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Salle</mat-header-cell>
+                <mat-cell *matCellDef="let formation">
+                    <div class="salle-cell">
+                        <mat-icon>meeting_room</mat-icon>
+                        {{formation.Salle}}
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- duree Column -->
+            <ng-container matColumnDef="duree">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Durée</mat-header-cell>
+                <mat-cell *matCellDef="let formation">
+                    <div class="duration-cell">
+                        <!-- <mat-icon>schedule</mat-icon> -->
+                        {{formation.DateDebut | date:'mediumDate'}} - {{formation.DateFin | date:'mediumDate'}}
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- nbEtudiantInscrit Column -->
+            <ng-container matColumnDef="nbEtudiantInscrit">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Inscrits</mat-header-cell>
+                <mat-cell *matCellDef="let formation">
+                    <div class="students-cell">
+                        <mat-icon>people</mat-icon>
+                        {{formation.EtudiantsInscrits?.length || 0}}
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let formation">
+                    <div class="actions-cell">
+                        <button mat-icon-button color="primary" (click)="viewFormationDetails(formation.FormationId)"
+                            matTooltip="Voir les détails">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" class="formation-row"></mat-row>
+
+            <!-- No Data Row -->
+            <tr class="no-data-row" *matNoDataRow>
+                <td colspan="5">
+                    <div class="no-data-content">
+                        <mat-icon>info</mat-icon>
+                        <p>Aucune formation trouvée</p>
+                    </div>
+                </td>
+            </tr>
+        </mat-table>
+
+        <!-- Pagination -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="formation-paginator"></mat-paginator>
+    </div>
+</div>

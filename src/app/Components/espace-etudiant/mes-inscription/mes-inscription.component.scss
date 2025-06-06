@@ -1,0 +1,49 @@
+.container {
+  padding: 20px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.table {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  color: #495057;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.badge {
+  padding: 8px 12px;
+  font-weight: 500;
+}
+
+.btn-danger {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  margin: 2rem 0;
+}
+
+.alert {
+  border-radius: 8px;
+  margin: 20px 0;
+}

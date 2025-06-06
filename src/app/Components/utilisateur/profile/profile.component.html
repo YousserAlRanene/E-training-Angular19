@@ -1,0 +1,84 @@
+<div class="profile-container">
+    <!-- Header Section -->
+    <div class="header-section">
+        <div class="header-content">
+            <h1 class="page-title">Mon Profil</h1>
+            <!-- <p class="page-subtitle">Informations personnelles et paramètres du compte</p> -->
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-overlay" *ngIf="loading">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Chargement du profil...</p>
+    </div>
+
+    <!-- Profile Content -->
+    <div class="profile-content" *ngIf="!loading && userData">
+        <mat-card class="profile-card">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="avatar-section">
+                    <div class="avatar">
+                        <mat-icon class="avatar-icon">person</mat-icon>
+                    </div>
+                    <h2 class="user-name">{{userData.Nom}} {{userData.Prenom}}</h2>
+                    <p class="user-role">{{userData.Role}}</p>
+                </div>
+            </div>
+
+            <!-- Profile Details -->
+            <div class="profile-details">
+                <div class="details-section">
+                    <h3 class="section-title">Informations Personnelles</h3>
+
+                    <div class="detail-item">
+                        <mat-icon class="detail-icon">email</mat-icon>
+                        <div class="detail-content">
+                            <span class="detail-label">Email</span>
+                            <span class="detail-value">{{userData.Email}}</span>
+                        </div>
+                    </div>
+                    <!-- 
+                    <div class="detail-item">
+                        <mat-icon class="detail-icon">phone</mat-icon>
+                        <div class="detail-content">
+                            <span class="detail-label">Téléphone</span>
+                            <span class="detail-value">{{userData.Telephone || 'Non renseigné'}}</span>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="detail-item">
+                        <mat-icon class="detail-icon">badge</mat-icon>
+                        <div class="detail-content">
+                            <span class="detail-label">Nom d'utilisateur</span>
+                            <span class="detail-value">{{userData.UserName}}</span>
+                        </div>
+                    </div> -->
+                </div>
+
+                <!-- <div class="details-section">
+                    <h3 class="section-title">Statistiques</h3>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <mat-icon class="stat-icon">school</mat-icon>
+                            <div class="stat-content">
+                                 <span class="stat-value">{{userData.NombreFormations || 0}}</span> 
+                <span class="stat-label">Formations</span>
+            </div>
+    </div>
+
+    <div class="stat-card">
+        <mat-icon class="stat-icon">event</mat-icon>
+        <div class="stat-content">
+             <span class="stat-value">{{userData.NombreInscriptions || 0}}</span> 
+            <span class="stat-label">Inscriptions</span>
+        </div>
+    </div>
+</div>
+</div> -->
+            </div>
+        </mat-card>
+    </div>
+</div>

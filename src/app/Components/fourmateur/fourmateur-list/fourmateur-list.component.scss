@@ -1,0 +1,210 @@
+// Variables
+$primary-color: #3f51b5;
+$accent-color: #ff4081;
+$warn-color: #f44336;
+$light-text: #ffffff;
+$dark-text: #333333;
+$border-radius: 8px;
+$box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+$transition: all 0.2s ease;
+
+.modern-container {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+}
+
+// Header section
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    position: relative;
+    padding: 0 12px;
+
+    .header-content {
+        .modern-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+            color: $dark-text;
+            line-height: 1.2;
+        }
+
+        .modern-subtitle {
+            font-size: 14px;
+            color: rgba($dark-text, 0.6);
+            margin: 4px 0 0;
+        }
+    }
+
+    .add-button {
+        position: absolute;
+        right: 0;
+        bottom: -24px;
+        z-index: 2;
+        box-shadow: $box-shadow;
+        transition: $transition;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+    }
+}
+
+// Card container
+.modern-card {
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    overflow: hidden;
+    padding: 0;
+    margin-top: 32px;
+    background: #ffffff;
+    transition: $transition;
+
+    .toolbar-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        background: #fafafa;
+
+        .search-field {
+            width: 300px;
+
+            .mat-form-field-wrapper {
+                padding-bottom: 0;
+            }
+        }
+
+        .refresh-button {
+            border-radius: 16px;
+            padding: 0 16px;
+            height: 36px;
+            transition: $transition;
+        }
+    }
+}
+
+// Table styles
+.table-wrapper {
+    position: relative;
+    min-height: 300px;
+    overflow-x: auto;
+    padding: 12px;
+
+    .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+
+        p {
+            color: $primary-color;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+    }
+
+    .modern-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 4px;
+
+        .mat-header-cell {
+            font-weight: 500;
+            font-size: 13px;
+            color: rgba($dark-text, 0.7);
+            background-color: transparent;
+            padding: 12px;
+            border-bottom: none;
+        }
+
+        .table-row {
+            transition: $transition;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .mat-cell {
+            padding: 16px 12px;
+            border-bottom: none;
+        }
+    }
+
+    .no-data-row {
+        td {
+            padding: 40px 0;
+            text-align: center;
+
+            .no-data-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                color: rgba($dark-text, 0.4);
+
+                mat-icon {
+                    font-size: 48px;
+                    width: 48px;
+                    height: 48px;
+                    opacity: 0.4;
+                }
+
+                p {
+                    margin: 0;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+// Pagination
+.modern-paginator {
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    padding: 12px 24px;
+    background: #fafafa;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .modern-container {
+        padding: 12px;
+    }
+
+    .header-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+
+        .add-button {
+            position: static;
+            margin-top: 12px;
+        }
+    }
+
+    .modern-card {
+        .toolbar-section {
+            flex-direction: column;
+            gap: 12px;
+
+            .search-field {
+                width: 100%;
+            }
+        }
+    }
+}

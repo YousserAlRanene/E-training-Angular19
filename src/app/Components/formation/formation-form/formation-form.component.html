@@ -1,0 +1,122 @@
+<div class="form-container">
+    <!-- Header -->
+    <div class="form-header">
+        <h2 mat-dialog-title>
+            {{ isEditMode ? 'Modifier la formation' : 'Créer une nouvelle formation' }}
+        </h2>
+        <button mat-icon-button (click)="onCancel()" class="close-button">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <mat-dialog-content>
+        <form [formGroup]="formationForm" (ngSubmit)="onSubmit()" class="modern-form">
+            <!-- Loading overlay -->
+            <div class="loading-overlay" *ngIf="loading">
+                <mat-spinner diameter="50"></mat-spinner>
+            </div>
+
+            <!-- Two-column layout -->
+            <div class="form-columns">
+                <!-- First column -->
+                <div class="form-column">
+                    <!-- Titre -->
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Titre de la formation</mat-label>
+                        <input matInput formControlName="Titre" required>
+                        <mat-icon matPrefix>title</mat-icon>
+                        <mat-error *ngIf="formationForm.get('Titre')?.hasError('required')">
+                            Ce champ est obligatoire
+                        </mat-error>
+                        <mat-error *ngIf="formationForm.get('Titre')?.hasError('minlength')">
+                            Minimum 3 caractères
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Description -->
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput formControlName="Description" rows="4" required></textarea>
+                        <mat-error *ngIf="formationForm.get('Description')?.hasError('required')">
+                            Ce champ est obligatoire
+                        </mat-error>
+                        <mat-error *ngIf="formationForm.get('Description')?.hasError('minlength')">
+                            Minimum 10 caractères
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Salle -->
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Salle</mat-label>
+                        <input matInput formControlName="Salle" required>
+                        <mat-icon matPrefix>meeting_room</mat-icon>
+                        <mat-error *ngIf="formationForm.get('Salle')?.hasError('required')">
+                            Ce champ est obligatoire
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Second column -->
+                <div class="form-column">
+                    <!-- Date Début -->
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Date de début</mat-label>
+                        <input matInput formControlName="DateDebut" [matDatepicker]="picker1" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-icon matPrefix>event</mat-icon>
+                        <mat-error *ngIf="formationForm.get('DateDebut')?.hasError('required')">
+                            Ce champ est obligatoire
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Date Fin -->
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Date de fin</mat-label>
+                        <input matInput formControlName="DateFin" [matDatepicker]="picker2" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        <mat-icon matPrefix>event_available</mat-icon>
+                        <mat-error *ngIf="formationForm.get('DateFin')?.hasError('required')">
+                            Ce champ est obligatoire
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Places disponibles -->
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Places disponibles</mat-label>
+                        <input matInput type="number" formControlName="PlacesDisponibles" min="1" required>
+                        <mat-icon matPrefix>people</mat-icon>
+                        <mat-error *ngIf="formationForm.get('PlacesDisponibles')?.hasError('required')">
+                            Ce champ est obligatoire
+                        </mat-error>
+                        <mat-error *ngIf="formationForm.get('PlacesDisponibles')?.hasError('min')">
+                            Minimum 1 place
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Formateurs (multi-select) -->
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Formateurs</mat-label>
+                        <mat-select formControlName="FormateurIds" multiple>
+                            <mat-option *ngFor="let formateur of availableFormateurs" [value]="formateur.Id">
+                                {{ formateur.Nom }} {{ formateur.Prenom }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matPrefix>person</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end" class="form-actions">
+        <button mat-button (click)="onCancel()" class="cancel-button">
+            Annuler
+        </button>
+        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="formationForm.invalid || loading"
+            class="submit-button">
+            {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+        </button>
+    </mat-dialog-actions>
+</div>

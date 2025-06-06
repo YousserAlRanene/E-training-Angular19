@@ -1,0 +1,58 @@
+<div class="container mt-4">
+  <h2>Mes Inscriptions</h2>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+
+  <!-- No Inscriptions -->
+  <div *ngIf="!loading && !error && inscriptions.length === 0" class="alert alert-info">
+    Vous n'avez aucune inscription pour le moment.
+  </div>
+
+  <!-- Inscriptions List -->
+  <div *ngIf="!loading && !error && inscriptions.length > 0" class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Formation</th>
+              <th>Date d'inscription</th>
+              <!-- <th>Statut</th> -->
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let inscription of inscriptions">
+              <td>{{ inscription.NomFormation }}</td>
+              <td>{{ inscription.DateInscription | date:'dd/MM/yyyy' }}</td>
+              <!-- <td>
+                <span [ngClass]="{
+                  'badge bg-success': inscription.Statut === 'Valide',
+                  'badge bg-warning': inscription.Statut === 'EnAttente',
+                  'badge bg-danger': inscription.Statut === 'Refuse'
+                }">
+                  {{ inscription.Statut }}
+                </span>
+              </td> -->
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="cancelInscription(inscription.Id)">
+                  Se Désabonner
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

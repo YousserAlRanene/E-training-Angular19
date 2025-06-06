@@ -1,0 +1,100 @@
+<div class="modern-container">
+    <!-- Header Section -->
+    <div class="header-section">
+        <div class="header-content">
+            <h1 class="modern-title">Liste des Inscriptions</h1>
+            <p class="modern-subtitle">Gérez vos inscriptions aux formations</p>
+        </div>
+    </div>
+
+    <!-- Card container -->
+    <mat-card class="modern-card">
+        <!-- Toolbar with filter -->
+        <div class="toolbar-section">
+            <mat-form-field appearance="fill" class="search-field">
+                <mat-label>Rechercher une inscription</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="ID, statut...">
+                <mat-icon matPrefix>search</mat-icon>
+            </mat-form-field>
+
+            <button mat-stroked-button color="primary" class="refresh-button" (click)="loadInscriptions()">
+                <mat-icon>refresh</mat-icon>
+                Actualiser
+            </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+            <div class="loading-overlay" *ngIf="loading">
+                <mat-spinner diameter="50" color="accent"></mat-spinner>
+                <p>Chargement en cours...</p>
+            </div>
+
+            <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                    <td mat-cell *matCellDef="let inscription">
+                        <div class="id-cell">{{inscription.Id | slice:0:8}}</div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="NomEtudiant">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom Etudiant</th>
+                    <td mat-cell *matCellDef="let inscription">
+                        <div class="id-cell">{{inscription.NomEtudiant}}</div>
+                    </td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date d'inscription</th>
+                    <td mat-cell *matCellDef="let inscription">
+                        <div class="date-cell">
+                            <mat-icon class="date-icon">event</mat-icon>
+                            {{inscription.DateInscription | date:'dd/MM/yyyy'}}
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="statut">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
+                    <td mat-cell *matCellDef="let inscription">
+                        <div class="status-badge" [class.active]="inscription.Statut === 'Active'">
+                            {{inscription.Statut}}
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="actions-header">Actions</th>
+                    <td mat-cell *matCellDef="let inscription">
+                        <div class="actions-cell">
+                            <button mat-icon-button color="warn" class="delete-button"
+                                (click)="deleteInscription(inscription.Id)" matTooltip="Supprimer">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+
+                <!-- No Data Row -->
+                <tr class="no-data-row" *matNoDataRow>
+                    <td colspan="4">
+                        <div class="no-data-content">
+                            <mat-icon>info</mat-icon>
+                            <p>Aucune inscription trouvée</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons class="modern-paginator"></mat-paginator>
+    </mat-card>
+</div>

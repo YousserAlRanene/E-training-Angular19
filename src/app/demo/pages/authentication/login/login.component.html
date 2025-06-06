@@ -1,0 +1,63 @@
+<div class="auth-main">
+  <div class="auth-wrapper v3">
+    <div class="auth-form">
+      <div class="card my-5">
+        <div class="card-body">
+          <a class="d-flex justify-content-center">
+            <img src="assets/images/logo-dark.svg" alt="logo" />
+          </a>
+
+          <div class="d-grid">
+            <!-- <button type="button" class="btn mt-2 btn-light-primary bg-light text-muted">
+              <img src="assets/images/authentication/google-icon.svg" alt="google" />
+              Sign In With Google
+            </button>
+          </div>
+          <div class="saprator mt-3">
+            <span>or</span>
+          </div> -->
+            <h5 class="my-4 d-flex justify-content-center">Sign in with Email address</h5>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" formControlName="email" />
+                <label for="floatingInput">Email address</label>
+                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+                  <small *ngIf="loginForm.get('email')?.errors?.['required']">Email est requis</small>
+                  <small *ngIf="loginForm.get('email')?.errors?.['email']">Format d'email invalide</small>
+                </div>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="password" formControlName="password" />
+                <label for="password">Password</label>
+                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+                  <small *ngIf="loginForm.get('password')?.errors?.['required']">Mot de passe est requis</small>
+                  <small *ngIf="loginForm.get('password')?.errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères</small>
+                </div>
+              </div>
+              <div class="d-flex mt-1 justify-content-between">
+                <div class="form-check">
+                  <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" formControlName="rememberMe" />
+                  <label class="form-check-label text-muted" for="customCheckc1">Remember me</label>
+                </div>
+                <h5 class="text-secondary">
+                  <a href="javascript:">Forgot Password?</a>
+                </h5>
+              </div>
+              <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-secondary" [disabled]="loginForm.invalid || loading">
+                  {{ loading ? 'Connexion en cours...' : 'Sign In' }}
+                </button>
+              </div>
+              <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                {{ errorMessage }}
+              </div>
+            </form>
+            <hr />
+            <h5 class="d-flex justify-content-center">
+              <a [routerLink]="['/guest/register']">Don't have an account?</a>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
